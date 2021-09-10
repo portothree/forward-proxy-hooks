@@ -6,3 +6,8 @@ Forward proxy to transform hooks data
 
 -   Cronitor
     -   Google Chat
+
+## TODO integrations
+
+-   Sentry
+    -   Google Chat
