@@ -19,7 +19,8 @@ router.post('/gchat', (req, res, next) => {
 	const { id, type, monitor, description, rule } = req.body;
 
 	axios.post(GCHAT_URL, {
-		text: `${monitor} | ${description}`,
+		text: `${type}:${monitor} ${rule}
+		${description}`,
 	});
 
 	res.status(200);
