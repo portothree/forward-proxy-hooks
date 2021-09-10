@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
+const logger = require('../libs/logger');
 const router = express.Router();
 const GCHAT_URL = process.env.GCHAT_URL;
 
@@ -15,15 +16,24 @@ const GCHAT_URL = process.env.GCHAT_URL;
  *}
  */
 
-router.post('/gchat', (req, res, next) => {
-	const { id, type, monitor, description, rule } = req.body;
+router.post('/gchat', async (req, res, next) => {
+	try {
+		const { id, type, monitor, description, rule } = req.body;
 
-	axios.post(GCHAT_URL, {
-		text: `${type}:${monitor} | ${rule} \n${description}`,
-	});
+		const text = `${type}:${monitor} | ${rule} \n${description}`;
 
-	res.status(200);
-	return res.json({ message: 'Sent' });
+		logger.info(text);
+
+		await axios.post(GCHAT_URL, {
+			text,
+		});
+
+		res.status(200);
+		return res.json({ message: 'Sent' });
+	} catch (error) {
+		logger.error('Failed to send message to Google Chat');
+		next(error);
+	}
 });
 
 module.exports = router;
