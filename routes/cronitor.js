@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 
 const router = express.Router();
-const GCHAT_URL = procecess.env.GCHAT_URL;
+const GCHAT_URL = process.env.GCHAT_URL;
 
 /*
  * Cronitor Webhook POST body will be in JSON:
